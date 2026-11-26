@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADD | Tasas BCV / USDT y Conversor</title>
+
+    <!-- Tailwind CSS + configuración -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-configuracion.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Hoja de estilos única compilada desde SASS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="bg-brand-bgLight text-brand-charcoal min-h-screen antialiased">
+    <!-- Backdrop móvil -->
+    <div
+      id="sidebar-backdrop"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden lg:hidden"
+    ></div>
+
+    <!-- MENÚ LATERAL (SIDEBAR) -->
+    <aside
+      id="sidebar"
+      class="sidebar-brand fixed left-0 top-0 h-full w-64 z-50 flex flex-col justify-between p-5 shadow-xl -translate-x-full lg:translate-x-0 transition-transform duration-300"
+    >
+      <div class="space-y-8">
+        <div class="flex items-center justify-between px-1">
+          <a href="dashboard.html" class="flex items-center gap-2.5">
+            <img
+              src="logo.svg"
+              alt="Logo ADD"
+              class="h-9 w-auto object-contain"
+            />
+          </a>
+          <button
+            id="btn-close-sidebar"
+            type="button"
+            class="lg:hidden text-white/70 hover:text-white p-1.5 rounded-lg cursor-pointer"
+            aria-label="Cerrar menú"
+          >
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <nav class="space-y-1.5">
+          <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-house w-5 text-center"></i>
+            <span>Inicio</span>
+          </a>
+          <a href="deudas.html" class="nav-link">
+            <i class="fa-solid fa-wallet w-5 text-center"></i>
+            <span>Mis Deudas</span>
+          </a>
+          <a href="suscripciones.html" class="nav-link">
+            <i class="fa-solid fa-rotate w-5 text-center"></i>
+            <span>Gastos Fijos</span>
+          </a>
+          <a href="planificador.html" class="nav-link">
+            <i class="fa-solid fa-list-check w-5 text-center"></i>
+            <span>Planificador</span>
+          </a>
+          <a href="historial.html" class="nav-link">
+            <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
+            <span>Historial de Pagos</span>
+          </a>
+          <a href="tasas.html" class="nav-link active">
+            <i
+              class="fa-solid fa-money-bill-transfer w-5 text-center text-brand-amber"
+            ></i>
+            <span>Tasas BCV / USDT</span>
+          </a>
+          <a href="perfil.html" class="nav-link">
+            <i class="fa-regular fa-user w-5 text-center"></i>
+            <span>Perfil e Ingreso</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="pt-4 border-t border-white/10">
+        <button
+          id="btn-logout"
+          type="button"
+          class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-rose-300 hover:text-white hover:bg-rose-500/20 transition-all cursor-pointer"
+        >
+          <i class="fa-solid fa-right-from-bracket w-5 text-center"></i>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="lg:pl-64 flex flex-col min-h-screen">
+      <!-- TOPBAR -->
+      <header
+        class="topbar-glass sticky top-0 z-30 border-b border-slate-200/80"
+      >
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4"
+        >
+          <div class="flex items-center gap-3">
+            <button
+              id="btn-open-sidebar"
+              type="button"
+              class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 text-brand-petrol flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"
+              aria-label="Abrir menú"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <div>
+              <h1
+                id="topbar-greeting"
+                class="text-base sm:text-lg font-extrabold text-brand-charcoal leading-tight"
+              >
+                Hola, Usuario
+              </h1>
+              <p class="text-xs text-slate-500 hidden sm:block">
+                Actualización diaria automática de tasas BCV / USDT y conversor
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="hidden md:flex items-center gap-2">
+              <div
+                class="px-3 py-1.5 rounded-xl bg-slate-100 flex items-center gap-2 text-xs"
+              >
+                <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
+                <span class="text-slate-500 font-medium">BCV</span>
+                <strong id="topbar-bcv" class="text-brand-charcoal font-bold"
+                  >--</strong
+                >
+              </div>
+              <div
+                class="px-3 py-1.5 rounded-xl bg-slate-100 flex items-center gap-2 text-xs"
+              >
+                <span class="w-2 h-2 rounded-full bg-brand-amber"></span>
+                <span class="text-slate-500 font-medium">USDT</span>
+                <strong id="topbar-usdt" class="text-brand-charcoal font-bold"
+                  >--</strong
+                >
+              </div>
+            </div>
+
+            <div class="relative">
+              <button
+                id="btn-alerts"
+                type="button"
+                class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-brand-charcoal hover:border-brand-cyan transition flex items-center justify-center relative cursor-pointer"
+                aria-label="Ver alertas"
+              >
+                <i class="fa-regular fa-bell"></i>
+                <span
+                  id="badge-alerts"
+                  class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-coral text-white text-[10px] font-bold flex items-center justify-center"
+                >
+                  0
+                </span>
+              </button>
+
+              <div
+                id="alerts-popover"
+                class="hidden absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-200 p-4 z-50"
+              >
+                <div
+                  class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100"
+                >
+                  <span
+                    class="text-xs font-bold uppercase tracking-wider text-brand-charcoal"
+                  >
+                    Avisos de pago
+                  </span>
+                  <span class="text-[11px] font-semibold text-brand-cyan">
+                    Prevención ≤ 15 días
+                  </span>
+                </div>
+                <div
+                  id="alerts-list"
+                  class="space-y-2 max-h-64 overflow-y-auto custom-scroll"
+                ></div>
+              </div>
+            </div>
+
+            <button
+              id="btn-sincronizar-tasas"
+              type="button"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-petrol hover:bg-brand-petrolDark text-white text-xs sm:text-sm font-bold shadow-md shadow-brand-petrol/20 transition cursor-pointer"
+            >
+              <i id="icono-sync" class="fa-solid fa-arrows-rotate text-xs"></i>
+              <span>Actualizar Hoy</span>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="flex md:hidden items-center justify-center gap-4 py-1.5 px-4 bg-slate-100/80 border-t border-slate-200/70 text-xs"
+        >
+          <span class="text-slate-600">
+            BCV:
+            <strong id="topbar-bcv-mobile" class="text-brand-charcoal"
+              >--</strong
+            >
+          </span>
+          <span class="text-slate-300">|</span>
+          <span class="text-slate-600">
+            USDT:
+            <strong id="topbar-usdt-mobile" class="text-brand-charcoal"
+              >--</strong
+            >
+          </span>
+        </div>
+      </header>
+
+      <!-- CONTENIDO DE TASAS Y CONVERSOR -->
+      <main
+        class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 flex-1"
+      >
+        <!-- FILA 1: TARJETAS DE TASAS EN VIVO -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Tarjeta BCV -->
+          <div class="rate-card p-5 flex flex-col justify-between gap-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <span
+                  class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-cyan"
+                >
+                  <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
+                  Tasa Oficial BCV
+                </span>
+                <h2
+                  id="card-bcv-valor"
+                  class="text-3xl font-extrabold text-brand-charcoal mt-1.5"
+                >
+                  -- Bs
+                </h2>
+              </div>
+              <div
+                class="w-11 h-11 rounded-2xl bg-brand-cyan/10 text-brand-cyan flex items-center justify-center"
+              >
+                <i class="fa-solid fa-landmark text-lg"></i>
+              </div>
+            </div>
+            <p id="card-bcv-meta" class="text-xs text-slate-400">
+              Referencia oficial en Bolívares por 1 USD
+            </p>
+          </div>
+
+          <!-- Tarjeta USDT -->
+          <div class="rate-card p-5 flex flex-col justify-between gap-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <span
+                  class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-600"
+                >
+                  <span class="w-2 h-2 rounded-full bg-brand-amber"></span>
+                  Tasa USDT / Paralelo
+                </span>
+                <h2
+                  id="card-usdt-valor"
+                  class="text-3xl font-extrabold text-brand-charcoal mt-1.5"
+                >
+                  -- Bs
+                </h2>
+              </div>
+              <div
+                class="w-11 h-11 rounded-2xl bg-brand-amber/15 text-amber-600 flex items-center justify-center"
+              >
+                <i class="fa-solid fa-coins text-lg"></i>
+              </div>
+            </div>
+            <p id="card-usdt-meta" class="text-xs text-slate-400">
+              Referencia digital en Bolívares por 1 USDT
+            </p>
+          </div>
+
+          <!-- Tarjeta Brecha y Estado -->
+          <div class="rate-card p-5 flex flex-col justify-between gap-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <span
+                  class="text-xs font-bold uppercase tracking-wider text-slate-400"
+                >
+                  Brecha Cambiaria
+                </span>
+                <h2
+                  id="card-brecha-valor"
+                  class="text-3xl font-extrabold text-brand-petrol mt-1.5"
+                >
+                  0.0%
+                </h2>
+              </div>
+              <div
+                class="w-11 h-11 rounded-2xl bg-brand-petrol/10 text-brand-petrol flex items-center justify-center"
+              >
+                <i class="fa-solid fa-chart-line text-lg"></i>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span id="card-ultima-sync" class="text-slate-500">
+                Sin sincronizar
+              </span>
+              <span
+                id="card-fuente-badge"
+                class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600"
+              >
+                --
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- FILA 2: CONVERSOR MULTIMONEDA + AJUSTE MANUAL -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Conversor (7 columnas) -->
+          <div class="lg:col-span-7 panel-card p-5 sm:p-6 space-y-5">
+            <div>
+              <h3 class="text-base font-extrabold text-brand-charcoal">
+                Conversor Rápido Multimoneda
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Calcula al instante cuánto necesitas pagar en Bolívares, USD BCV
+                o USDT
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-11 gap-3 items-end">
+              <!-- Origen -->
+              <div class="sm:col-span-5 space-y-2">
+                <label
+                  class="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                >
+                  Tienes
+                </label>
+                <select
+                  id="conv-moneda-origen"
+                  class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-brand-charcoal focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                >
+                  <option value="USD">USD (Tasa BCV)</option>
+                  <option value="USDT">USDT (Referencia)</option>
+                  <option value="VES">Bolívares (Bs)</option>
+                </select>
+                <input
+                  id="conv-monto-origen"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value="100"
+                  placeholder="0.00"
+                  class="w-full px-3.5 py-3 bg-white border border-slate-200 rounded-xl text-lg font-extrabold text-brand-petrol focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                />
+              </div>
+
+              <!-- Botón invertir -->
+              <div class="sm:col-span-1 flex justify-center pb-2">
+                <button
+                  id="btn-invertir-conv"
+                  type="button"
+                  title="Invertir monedas"
+                  class="swap-btn"
+                >
+                  <i class="fa-solid fa-right-left text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Destino -->
+              <div class="sm:col-span-5 space-y-2">
+                <label
+                  class="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                >
+                  Equivale a
+                </label>
+                <select
+                  id="conv-moneda-destino"
+                  class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-brand-charcoal focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                >
+                  <option value="VES" selected>Bolívares (Bs)</option>
+                  <option value="USD">USD (Tasa BCV)</option>
+                  <option value="USDT">USDT (Referencia)</option>
+                </select>
+                <input
+                  id="conv-monto-destino"
+                  type="text"
+                  readonly
+                  class="w-full px-3.5 py-3 bg-slate-50 border border-slate-200 rounded-xl text-lg font-extrabold text-emerald-600 focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <!-- Comparativa rápida en las 3 monedas -->
+            <div
+              class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs"
+            >
+              <div>
+                <span class="text-slate-400 block">En Bolívares</span>
+                <strong
+                  id="comp-ves"
+                  class="text-sm font-extrabold text-brand-charcoal"
+                  >--</strong
+                >
+              </div>
+              <div>
+                <span class="text-slate-400 block">En USD (BCV)</span>
+                <strong
+                  id="comp-usd"
+                  class="text-sm font-extrabold text-brand-cyan"
+                  >--</strong
+                >
+              </div>
+              <div>
+                <span class="text-slate-400 block">En USDT</span>
+                <strong
+                  id="comp-usdt"
+                  class="text-sm font-extrabold text-amber-600"
+                  >--</strong
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Ajuste manual (5 columnas) -->
+          <div class="lg:col-span-5 panel-card p-5 sm:p-6 space-y-4">
+            <div>
+              <h3 class="text-base font-extrabold text-brand-charcoal">
+                Ajuste Manual (Respaldo)
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Si necesitas fijar una tasa exacta de Binance P2P o trabajas sin
+                conexión, guárdala aquí
+              </p>
+            </div>
+
+            <form id="form-tasas-manual" class="space-y-3.5">
+              <div>
+                <label
+                  class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                >
+                  Tasa BCV (Bs por $1)
+                </label>
+                <input
+                  id="manual-bcv"
+                  type="number"
+                  step="0.01"
+                  min="0.01"
+                  required
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                >
+                  Tasa USDT (Bs por 1 USDT)
+                </label>
+                <input
+                  id="manual-usdt"
+                  type="number"
+                  step="0.01"
+                  min="0.01"
+                  required
+                  class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                />
+              </div>
+
+              <button
+                type="submit"
+                class="w-full py-2.5 rounded-xl bg-brand-petrol hover:bg-brand-petrolDark text-white text-sm font-bold shadow-sm transition cursor-pointer"
+              >
+                Guardar tasas manualmente
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- FILA 3: HISTORIAL DIARIO DE TASAS -->
+        <section class="panel-card p-5 sm:p-6 space-y-4">
+          <div>
+            <h3 class="text-base font-extrabold text-brand-charcoal">
+              Registro Diario de Tasas
+            </h3>
+            <p class="text-xs text-slate-500">
+              Historial de los últimos valores sincronizados o ajustados
+            </p>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr
+                  class="border-b border-slate-100 text-[11px] uppercase tracking-wider text-slate-400"
+                >
+                  <th class="py-2.5 pr-4 font-bold">Fecha</th>
+                  <th class="py-2.5 px-4 font-bold">Hora</th>
+                  <th class="py-2.5 px-4 font-bold">Tasa BCV</th>
+                  <th class="py-2.5 px-4 font-bold">Tasa USDT</th>
+                  <th class="py-2.5 px-4 font-bold">Brecha</th>
+                  <th class="py-2.5 pl-4 font-bold text-right">Origen</th>
+                </tr>
+              </thead>
+              <tbody
+                id="tabla-historial-tasas"
+                class="divide-y divide-slate-100 text-sm"
+              ></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Scripts separados -->
+    <script src="js/datos-prueba.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/tasas.js"></script>
+  </body>
+</html>

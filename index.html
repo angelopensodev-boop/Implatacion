@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal Financiero - Iniciar Sesión y Registro</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de Tailwind separada -->
+    <script src="js/tailwind-configuracion.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Hoja de estilos compilada desde SASS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body
+    class="bg-brand-bgLight text-brand-charcoal min-h-screen flex items-center justify-center p-3 sm:p-6 lg:p-8"
+  >
+    <!-- Main Container -->
+    <main
+      class="w-full max-w-6xl min-h-[660px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-slate-100"
+    >
+      <!-- LEFT PANEL: Visual Identity & Value Proposition -->
+      <div
+        class="lg:w-5/12 mesh-gradient p-8 lg:p-12 flex flex-col justify-center gap-10 relative overflow-hidden text-white select-none"
+      >
+        <!-- Background subtle dot matrix & glow elements -->
+        <div
+          class="absolute -top-16 -right-16 w-56 h-56 bg-brand-cyan/20 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div
+          class="absolute bottom-10 -left-10 w-48 h-48 bg-brand-amber/15 rounded-full blur-2xl pointer-events-none"
+        ></div>
+
+        <!-- Top header value proposition -->
+        <div class="relative z-10">
+          <h1
+            class="text-2xl lg:text-3xl font-extrabold tracking-tight leading-snug"
+          >
+            Gestiona tus finanzas con la máxima seguridad y agilidad.
+          </h1>
+        </div>
+
+        <!-- Graphic Credit Card / Financial Mockup -->
+        <div class="relative z-10">
+          <!-- Floating Back card preview -->
+          <div
+            class="glass-card rounded-2xl p-5 mb-[-70px] ml-6 mr-2 shadow-xl transform rotate-2 opacity-80 border-t border-brand-cyanLight/40"
+          >
+            <div
+              class="flex justify-between items-center text-xs text-brand-cyanLight font-mono"
+            >
+              <span>BANDA PROTEGIDA 256-BIT</span>
+              <i class="fa-solid fa-wifi text-brand-amber"></i>
+            </div>
+          </div>
+
+          <!-- Main Front Card (Solo logo grande centrado) -->
+          <div
+            id="credit-card"
+            class="card-brand min-h-[215px] rounded-2xl p-8 shadow-2xl relative overflow-hidden flex items-center justify-center transform hover:-translate-y-1 transition duration-300"
+          >
+            <!-- Dynamic Cursor Glare Overlay -->
+            <div
+              id="card-glare"
+              class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 rounded-2xl"
+            ></div>
+
+            <img
+              src="logo.svg"
+              alt="Logo"
+              class="relative z-10 h-24 sm:h-28 max-w-[75%] w-auto object-contain drop-shadow-md"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Interactive Forms (Login & Register) -->
+      <div
+        class="lg:w-7/12 p-6 sm:p-10 lg:p-12 flex flex-col justify-center relative bg-white"
+      >
+        <!-- View Selector / Tabs Toggle (Login vs Register) -->
+        <div
+          class="w-full bg-slate-100 p-1.5 rounded-2xl flex items-center mb-6"
+        >
+          <button
+            id="tab-login"
+            type="button"
+            class="w-1/2 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 bg-white text-brand-petrol shadow-sm cursor-pointer"
+          >
+            <i class="fa-solid fa-arrow-right-to-bracket text-xs"></i>
+            Iniciar Sesión
+          </button>
+          <button
+            id="tab-register"
+            type="button"
+            class="w-1/2 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 text-slate-500 hover:text-brand-petrol cursor-pointer"
+          >
+            <i class="fa-solid fa-user-plus text-xs"></i>
+            Crear Cuenta
+          </button>
+        </div>
+
+        <!-- VIEW 1: FORMULARIO DE INICIAR SESIÓN -->
+        <form id="form-login" class="space-y-4 form-anim" novalidate>
+          <div>
+            <label
+              for="login-email"
+              class="block text-xs font-bold text-brand-charcoal uppercase tracking-wider mb-1.5"
+            >
+              Correo Electrónico
+            </label>
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"
+              >
+                <i class="fa-regular fa-envelope text-sm"></i>
+              </div>
+              <input
+                type="email"
+                id="login-email"
+                required
+                placeholder="ejemplo@banca.com"
+                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan focus:border-brand-cyan transition-all text-brand-charcoal font-medium"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label
+                for="login-password"
+                class="block text-xs font-bold text-brand-charcoal uppercase tracking-wider"
+              >
+                Contraseña
+              </label>
+              <a
+                href="javascript:void(0)"
+                id="link-forgot-pass"
+                class="text-xs font-semibold text-brand-cyan hover:text-brand-royal transition-colors"
+              >
+                ¿Olvidaste tu contraseña?
+              </a>
+            </div>
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"
+              >
+                <i class="fa-solid fa-lock text-sm"></i>
+              </div>
+              <input
+                type="password"
+                id="login-password"
+                required
+                placeholder="••••••••••••"
+                class="w-full pl-10 pr-11 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan focus:border-brand-cyan transition-all text-brand-charcoal font-medium"
+              />
+              <button
+                type="button"
+                class="btn-toggle-pass absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-brand-charcoal transition-colors cursor-pointer"
+              >
+                <i class="fa-regular fa-eye text-sm"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-1">
+            <label class="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                id="login-remember"
+                class="w-4 h-4 rounded text-brand-cyan focus:ring-brand-cyan border-slate-300 cursor-pointer"
+              />
+              <span class="text-xs text-slate-600 font-medium"
+                >Recordar este dispositivo</span
+              >
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3.5 px-4 rounded-xl bg-brand-petrol hover:bg-brand-petrolDark text-white font-bold text-sm shadow-lg shadow-brand-petrol/20 hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer"
+          >
+            <span>Ingresar a mi cuenta</span>
+            <i
+              class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"
+            ></i>
+          </button>
+        </form>
+
+        <!-- VIEW 2: FORMULARIO DE REGISTRO RÁPIDO (Inicialmente oculto) -->
+        <form
+          id="form-register"
+          class="space-y-3.5 hidden form-anim"
+          novalidate
+        >
+          <div>
+            <label
+              for="reg-name"
+              class="block text-xs font-bold text-brand-charcoal uppercase tracking-wider mb-1.5"
+            >
+              Nombre Completo
+            </label>
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"
+              >
+                <i class="fa-regular fa-user text-sm"></i>
+              </div>
+              <input
+                type="text"
+                id="reg-name"
+                required
+                placeholder="ej. Carlos Mendoza"
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan focus:border-brand-cyan transition-all text-brand-charcoal font-medium"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              for="reg-email"
+              class="block text-xs font-bold text-brand-charcoal uppercase tracking-wider mb-1.5"
+            >
+              Correo Electrónico
+            </label>
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"
+              >
+                <i class="fa-regular fa-envelope text-sm"></i>
+              </div>
+              <input
+                type="email"
+                id="reg-email"
+                required
+                placeholder="carlos@correo.com"
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan focus:border-brand-cyan transition-all text-brand-charcoal font-medium"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label
+                for="reg-password"
+                class="block text-xs font-bold text-brand-charcoal uppercase tracking-wider mb-1.5"
+              >
+                Contraseña
+              </label>
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"
+                >
+                  <i class="fa-solid fa-lock text-sm"></i>
+                </div>
+                <input
+                  type="password"
+                  id="reg-password"
+                  required
+                  placeholder="••••••••"
+                  class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan focus:border-brand-cyan transition-all text-brand-charcoal font-medium"
+                />
+                <button
+                  type="button"
+                  class="btn-toggle-pass absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-brand-charcoal transition-colors cursor-pointer"
+                >
+                  <i class="fa-regular fa-eye text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="reg-confirm-password"
+                class="block text-xs font-bold text-brand-charcoal uppercase tracking-wider mb-1.5"
+              >
+                Confirmar
+              </label>
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"
+                >
+                  <i class="fa-solid fa-shield-halved text-sm"></i>
+                </div>
+                <input
+                  type="password"
+                  id="reg-confirm-password"
+                  required
+                  placeholder="••••••••"
+                  class="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan focus:border-brand-cyan transition-all text-brand-charcoal font-medium"
+                />
+                <button
+                  type="button"
+                  class="btn-toggle-pass absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-brand-charcoal transition-colors cursor-pointer"
+                >
+                  <i class="fa-regular fa-eye text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Barra de seguridad de contraseña -->
+          <div id="pass-strength-box" class="hidden pt-0.5">
+            <div class="grid grid-cols-3 gap-1.5">
+              <div
+                id="strength-bar-1"
+                class="h-1.5 rounded-full bg-slate-200 transition-colors duration-300"
+              ></div>
+              <div
+                id="strength-bar-2"
+                class="h-1.5 rounded-full bg-slate-200 transition-colors duration-300"
+              ></div>
+              <div
+                id="strength-bar-3"
+                class="h-1.5 rounded-full bg-slate-200 transition-colors duration-300"
+              ></div>
+            </div>
+            <p
+              id="strength-text"
+              class="text-[11px] font-semibold mt-1 text-slate-400"
+            ></p>
+          </div>
+
+          <div class="text-[11px] text-slate-500 pt-1 leading-relaxed">
+            Al registrarte aceptas los
+            <a
+              href="terminos-y-condiciones.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand-cyan hover:text-brand-royal underline font-semibold transition-colors"
+              >Términos y Condiciones</a
+            >.
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-royal hover:from-brand-cyan hover:to-brand-petrol text-white font-bold text-sm shadow-lg shadow-brand-cyan/25 hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer"
+          >
+            <span>Crear cuenta gratis</span>
+          </button>
+        </form>
+
+        <!-- Divider (En una sola línea horizontal centrada) -->
+        <div class="flex items-center gap-3 my-5">
+          <div class="border-t border-slate-200 flex-1"></div>
+          <span
+            class="text-xs uppercase tracking-wider text-slate-400 font-medium whitespace-nowrap select-none"
+          >
+            o continúa con
+          </span>
+          <div class="border-t border-slate-200 flex-1"></div>
+        </div>
+
+        <!-- Google OAuth Button (Debajo del formulario principal) -->
+        <button
+          id="btn-google"
+          type="button"
+          class="w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-3 shadow-sm hover:shadow group cursor-pointer"
+        >
+          <!-- Official Google SVG Icon -->
+          <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+            <path
+              fill="#4285F4"
+              d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.15z"
+            />
+            <path
+              fill="#34A853"
+              d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.15C3.26 21.4 7.34 24 12 24z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.24C.45 8.16 0 9.97 0 12s.45 3.84 1.24 5.42l4.04-3.15z"
+            />
+            <path
+              fill="#EA4335"
+              d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.6 1.24 6.58l4.04 3.15c.95-2.83 3.6-4.93 6.72-4.93z"
+            />
+          </svg>
+          <span class="group-hover:text-brand-charcoal transition-colors"
+            >Continuar con Google</span
+          >
+        </button>
+      </div>
+    </main>
+
+    <!-- Librería oficial de Supabase y configuración -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+
+    <!-- Lógica JavaScript separada -->
+    <script src="js/login.js"></script>
+  </body>
+</html>

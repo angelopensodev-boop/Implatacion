@@ -1,0 +1,242 @@
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.mesh-gradient {
+  background: radial-gradient(circle at 10% 20%, #009ec4 0%, transparent 45%), radial-gradient(circle at 90% 85%, #0c72c2 0%, transparent 40%), radial-gradient(circle at 80% 15%, rgba(251, 185, 0, 0.25) 0%, transparent 30%), #02425b;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-brand {
+  background: linear-gradient(90deg, #0c72c2 0%, #009ec4 50%, #02425b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 35px -10px rgba(1, 41, 57, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  will-change: transform;
+}
+.card-brand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.sidebar-brand {
+  background: linear-gradient(180deg, #02425b 0%, #012939 100%);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  transition: all 0.2s ease;
+}
+.nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+.nav-link.active {
+  color: #ffffff;
+  font-weight: 700;
+  background: linear-gradient(90deg, rgba(0, 158, 196, 0.35) 0%, rgba(12, 114, 194, 0.25) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.topbar-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.kpi-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(2, 66, 91, 0.12);
+}
+
+.panel-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+}
+
+.debt-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.debt-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 158, 196, 0.45);
+  box-shadow: 0 12px 24px -10px rgba(2, 66, 91, 0.12);
+}
+
+.filter-pill {
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #f1f5f9;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.filter-pill:hover {
+  color: #02425b;
+  background: #e2e8f0;
+}
+.filter-pill.active {
+  color: #ffffff;
+  background: #02425b;
+  box-shadow: 0 4px 10px rgba(2, 66, 91, 0.2);
+}
+
+.sub-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.sub-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 158, 196, 0.45);
+  box-shadow: 0 12px 24px -10px rgba(2, 66, 91, 0.12);
+}
+.sub-card.is-paused {
+  opacity: 0.72;
+  background: #f8fafc;
+}
+
+.strategy-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  text-align: left;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.strategy-btn:hover {
+  border-color: rgba(0, 158, 196, 0.5);
+  background: #ffffff;
+}
+.strategy-btn.active {
+  background: #02425b;
+  border-color: #02425b;
+  color: #ffffff;
+  box-shadow: 0 8px 18px -6px rgba(2, 66, 91, 0.35);
+}
+.strategy-btn.active .strategy-sub {
+  color: rgba(255, 255, 255, 0.78);
+}
+.strategy-btn.active .strategy-icon {
+  color: #fbb900;
+}
+
+.plan-step-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.15rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.plan-step-card:hover {
+  border-color: rgba(0, 158, 196, 0.45);
+  box-shadow: 0 10px 20px -10px rgba(2, 66, 91, 0.1);
+}
+
+.history-row {
+  transition: background-color 0.15s ease;
+}
+.history-row:hover {
+  background-color: #f8fafc;
+}
+
+@media print {
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+  .lg\:pl-64 {
+    padding-left: 0 !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  .panel-card {
+    box-shadow: none !important;
+    border-color: #cbd5e1 !important;
+  }
+}
+.rate-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.rate-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(2, 66, 91, 0.12);
+}
+
+.swap-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: #02425b;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, background-color 0.2s ease;
+  cursor: pointer;
+}
+.swap-btn:hover {
+  background: #009ec4;
+  transform: rotate(180deg);
+}
+
+.avatar-brand {
+  background: linear-gradient(135deg, #02425b 0\%, #009ec4 100%);
+  box-shadow: 0 10px 20px -8px rgba(2, 66, 91, 0.35);
+}
+
+.danger-zone {
+  background: #fff5f5;
+  border: 1px solid #fecdd3;
+  border-radius: 1.25rem;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADD | Perfil e Ingreso</title>
+
+    <!-- Tailwind CSS + configuración -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-configuracion.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Hoja de estilos única compilada desde SASS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body class="bg-brand-bgLight text-brand-charcoal min-h-screen antialiased">
+    <!-- Backdrop móvil -->
+    <div
+      id="sidebar-backdrop"
+      class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden lg:hidden"
+    ></div>
+
+    <!-- MENÚ LATERAL (SIDEBAR) -->
+    <aside
+      id="sidebar"
+      class="sidebar-brand fixed left-0 top-0 h-full w-64 z-50 flex flex-col justify-between p-5 shadow-xl -translate-x-full lg:translate-x-0 transition-transform duration-300"
+    >
+      <div class="space-y-8">
+        <div class="flex items-center justify-between px-1">
+          <a href="dashboard.html" class="flex items-center gap-2.5">
+            <img
+              src="logo.svg"
+              alt="Logo ADD"
+              class="h-9 w-auto object-contain"
+            />
+          </a>
+          <button
+            id="btn-close-sidebar"
+            type="button"
+            class="lg:hidden text-white/70 hover:text-white p-1.5 rounded-lg cursor-pointer"
+            aria-label="Cerrar menú"
+          >
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <nav class="space-y-1.5">
+          <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-house w-5 text-center"></i>
+            <span>Inicio</span>
+          </a>
+          <a href="deudas.html" class="nav-link">
+            <i class="fa-solid fa-wallet w-5 text-center"></i>
+            <span>Mis Deudas</span>
+          </a>
+          <a href="suscripciones.html" class="nav-link">
+            <i class="fa-solid fa-rotate w-5 text-center"></i>
+            <span>Gastos Fijos</span>
+          </a>
+          <a href="planificador.html" class="nav-link">
+            <i class="fa-solid fa-list-check w-5 text-center"></i>
+            <span>Planificador</span>
+          </a>
+          <a href="historial.html" class="nav-link">
+            <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
+            <span>Historial de Pagos</span>
+          </a>
+          <a href="tasas.html" class="nav-link">
+            <i class="fa-solid fa-money-bill-transfer w-5 text-center"></i>
+            <span>Tasas BCV / USDT</span>
+          </a>
+          <a href="perfil.html" class="nav-link active">
+            <i class="fa-regular fa-user w-5 text-center text-brand-amber"></i>
+            <span>Perfil e Ingreso</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="pt-4 border-t border-white/10">
+        <button
+          id="btn-logout"
+          type="button"
+          class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-rose-300 hover:text-white hover:bg-rose-500/20 transition-all cursor-pointer"
+        >
+          <i class="fa-solid fa-right-from-bracket w-5 text-center"></i>
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="lg:pl-64 flex flex-col min-h-screen">
+      <!-- TOPBAR -->
+      <header
+        class="topbar-glass sticky top-0 z-30 border-b border-slate-200/80"
+      >
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4"
+        >
+          <div class="flex items-center gap-3">
+            <button
+              id="btn-open-sidebar"
+              type="button"
+              class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 text-brand-petrol flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"
+              aria-label="Abrir menú"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <div>
+              <h1
+                id="topbar-greeting"
+                class="text-base sm:text-lg font-extrabold text-brand-charcoal leading-tight"
+              >
+                Hola, Usuario
+              </h1>
+              <p class="text-xs text-slate-500 hidden sm:block">
+                Administra tus datos personales, ingreso mensual y respaldo
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="hidden md:flex items-center gap-2">
+              <a
+                href="tasas.html"
+                class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 transition flex items-center gap-2 text-xs"
+              >
+                <span class="w-2 h-2 rounded-full bg-brand-cyan"></span>
+                <span class="text-slate-500 font-medium">BCV</span>
+                <strong id="topbar-bcv" class="text-brand-charcoal font-bold"
+                  >--</strong
+                >
+              </a>
+              <a
+                href="tasas.html"
+                class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 transition flex items-center gap-2 text-xs"
+              >
+                <span class="w-2 h-2 rounded-full bg-brand-amber"></span>
+                <span class="text-slate-500 font-medium">USDT</span>
+                <strong id="topbar-usdt" class="text-brand-charcoal font-bold"
+                  >--</strong
+                >
+              </a>
+            </div>
+
+            <div class="relative">
+              <button
+                id="btn-alerts"
+                type="button"
+                class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-brand-charcoal hover:border-brand-cyan transition flex items-center justify-center relative cursor-pointer"
+                aria-label="Ver alertas"
+              >
+                <i class="fa-regular fa-bell"></i>
+                <span
+                  id="badge-alerts"
+                  class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-coral text-white text-[10px] font-bold flex items-center justify-center"
+                >
+                  0
+                </span>
+              </button>
+
+              <div
+                id="alerts-popover"
+                class="hidden absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-200 p-4 z-50"
+              >
+                <div
+                  class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-100"
+                >
+                  <span
+                    class="text-xs font-bold uppercase tracking-wider text-brand-charcoal"
+                  >
+                    Avisos de pago
+                  </span>
+                  <span class="text-[11px] font-semibold text-brand-cyan">
+                    Prevención
+                  </span>
+                </div>
+                <div
+                  id="alerts-list"
+                  class="space-y-2 max-h-64 overflow-y-auto custom-scroll"
+                ></div>
+              </div>
+            </div>
+
+            <a
+              href="deudas.html?nueva=1"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-petrol hover:bg-brand-petrolDark text-white text-xs sm:text-sm font-bold shadow-md shadow-brand-petrol/20 transition"
+            >
+              <i class="fa-solid fa-plus text-xs"></i>
+              <span class="hidden sm:inline">Nueva Deuda</span>
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="flex md:hidden items-center justify-center gap-4 py-1.5 px-4 bg-slate-100/80 border-t border-slate-200/70 text-xs"
+        >
+          <span class="text-slate-600">
+            BCV:
+            <strong id="topbar-bcv-mobile" class="text-brand-charcoal"
+              >--</strong
+            >
+          </span>
+          <span class="text-slate-300">|</span>
+          <span class="text-slate-600">
+            USDT:
+            <strong id="topbar-usdt-mobile" class="text-brand-charcoal"
+              >--</strong
+            >
+          </span>
+        </div>
+      </header>
+
+      <!-- CONTENIDO DEL PERFIL -->
+      <main
+        class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 flex-1"
+      >
+        <!-- TARJETA CABECERA DE CUENTA -->
+        <section
+          class="panel-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5"
+        >
+          <div class="flex items-center gap-4">
+            <div
+              id="perfil-avatar"
+              class="avatar-brand w-16 h-16 rounded-2xl text-white text-xl font-extrabold flex items-center justify-center shrink-0"
+            >
+              US
+            </div>
+            <div>
+              <h2
+                id="perfil-header-nombre"
+                class="text-lg sm:text-xl font-extrabold text-brand-charcoal"
+              >
+                Usuario
+              </h2>
+              <p
+                id="perfil-header-correo"
+                class="text-xs sm:text-sm text-slate-500"
+              >
+                demo@correo.com
+              </p>
+              <span
+                class="inline-flex items-center gap-1.5 mt-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px] font-bold"
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                Cuenta activa
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="grid grid-cols-3 gap-3 sm:gap-5 pt-4 sm:pt-0 border-t sm:border-t-0 border-slate-100 text-center"
+          >
+            <div>
+              <span class="text-[11px] text-slate-400 block"
+                >Deudas activas</span
+              >
+              <strong
+                id="stat-deudas"
+                class="text-lg font-extrabold text-brand-petrol"
+                >0</strong
+              >
+            </div>
+            <div>
+              <span class="text-[11px] text-slate-400 block">Gastos fijos</span>
+              <strong
+                id="stat-fijos"
+                class="text-lg font-extrabold text-brand-cyan"
+                >0</strong
+              >
+            </div>
+            <div>
+              <span class="text-[11px] text-slate-400 block">Pagos hechos</span>
+              <strong
+                id="stat-abonos"
+                class="text-lg font-extrabold text-emerald-600"
+                >0</strong
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- FORMULARIOS PRINCIPALES (2 COLUMNAS) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Izquierda (7 columnas): Datos personales e Ingreso mensual -->
+          <div class="lg:col-span-7 panel-card p-5 sm:p-6 space-y-5">
+            <div class="pb-3 border-b border-slate-100">
+              <h3 class="text-base font-extrabold text-brand-charcoal">
+                Datos Personales e Ingreso Mensual
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Tu ingreso y días de alerta alimentan automáticamente el
+                Dashboard, las alertas y el Planificador
+              </p>
+            </div>
+
+            <form id="form-perfil" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    for="perfil-nombre"
+                    class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                  >
+                    Nombre Completo
+                  </label>
+                  <input
+                    id="perfil-nombre"
+                    type="text"
+                    required
+                    placeholder="Tu nombre"
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    for="perfil-correo"
+                    class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                  >
+                    Correo Electrónico
+                  </label>
+                  <input
+                    id="perfil-correo"
+                    type="email"
+                    required
+                    placeholder="tu@correo.com"
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label
+                    for="perfil-ingreso"
+                    class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                  >
+                    Ingreso Mensual (USD)
+                  </label>
+                  <div class="relative">
+                    <span
+                      class="absolute left-3.5 top-2.5 text-sm font-bold text-slate-400"
+                      >$</span
+                    >
+                    <input
+                      id="perfil-ingreso"
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      required
+                      placeholder="0.00"
+                      class="w-full pl-8 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-extrabold text-brand-petrol focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    for="perfil-moneda"
+                    class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                  >
+                    Moneda Referencia
+                  </label>
+                  <select
+                    id="perfil-moneda"
+                    class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                  >
+                    <option value="USD">USD (BCV)</option>
+                    <option value="USDT">USDT</option>
+                    <option value="VES">Bolívares (Bs)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    for="perfil-dias-alerta"
+                    class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                  >
+                    Avisar antes (días)
+                  </label>
+                  <input
+                    id="perfil-dias-alerta"
+                    type="number"
+                    min="1"
+                    max="30"
+                    value="15"
+                    required
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                  />
+                </div>
+              </div>
+
+              <div
+                class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between text-xs"
+              >
+                <span class="text-slate-500">
+                  Equivalente estimado de tu ingreso en Bolívares (BCV):
+                </span>
+                <strong
+                  id="perfil-ingreso-bs"
+                  class="text-brand-petrol font-extrabold"
+                >
+                  0.00 Bs
+                </strong>
+              </div>
+
+              <div class="flex justify-end pt-2">
+                <button
+                  type="submit"
+                  class="px-5 py-2.5 rounded-xl bg-brand-petrol hover:bg-brand-petrolDark text-white text-sm font-bold shadow-md transition inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <i class="fa-solid fa-floppy-disk text-xs"></i>
+                  <span>Guardar Cambios</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Derecha (5 columnas): Seguridad y Contraseña -->
+          <div class="lg:col-span-5 panel-card p-5 sm:p-6 space-y-5">
+            <div class="pb-3 border-b border-slate-100">
+              <h3 class="text-base font-extrabold text-brand-charcoal">
+                Seguridad de Acceso
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Actualiza tu contraseña periódicamente para proteger tu cuenta
+              </p>
+            </div>
+
+            <form id="form-password" class="space-y-3.5">
+              <div>
+                <label
+                  for="pass-actual"
+                  class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                >
+                  Contraseña Actual
+                </label>
+                <div class="relative">
+                  <input
+                    id="pass-actual"
+                    type="password"
+                    required
+                    placeholder="••••••••"
+                    class="w-full pl-3.5 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                  />
+                  <button
+                    type="button"
+                    class="btn-toggle-pass absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-brand-charcoal cursor-pointer"
+                  >
+                    <i class="fa-regular fa-eye text-xs"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="pass-nueva"
+                  class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                >
+                  Nueva Contraseña
+                </label>
+                <div class="relative">
+                  <input
+                    id="pass-nueva"
+                    type="password"
+                    required
+                    minlength="6"
+                    placeholder="Mínimo 6 caracteres"
+                    class="w-full pl-3.5 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                  />
+                  <button
+                    type="button"
+                    class="btn-toggle-pass absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-brand-charcoal cursor-pointer"
+                  >
+                    <i class="fa-regular fa-eye text-xs"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  for="pass-confirmar"
+                  class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1"
+                >
+                  Confirmar Nueva Contraseña
+                </label>
+                <div class="relative">
+                  <input
+                    id="pass-confirmar"
+                    type="password"
+                    required
+                    minlength="6"
+                    placeholder="Repite la contraseña"
+                    class="w-full pl-3.5 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+                  />
+                  <button
+                    type="button"
+                    class="btn-toggle-pass absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-brand-charcoal cursor-pointer"
+                  >
+                    <i class="fa-regular fa-eye text-xs"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-brand-cyan hover:text-white text-brand-charcoal text-sm font-bold transition cursor-pointer"
+              >
+                Actualizar Contraseña
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- RESPALDO Y GESTIÓN DE DATOS -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Exportar copia de seguridad -->
+          <div
+            class="panel-card p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          >
+            <div>
+              <h3 class="text-sm font-extrabold text-brand-charcoal">
+                Copia de Seguridad Local
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Descarga todas tus deudas, gastos fijos e historial en un
+                archivo JSON
+              </p>
+            </div>
+            <button
+              id="btn-exportar-json"
+              type="button"
+              class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-brand-charcoal text-xs font-bold transition inline-flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+            >
+              <i class="fa-solid fa-download text-brand-cyan"></i>
+              <span>Descargar Respaldo</span>
+            </button>
+          </div>
+
+          <!-- Reiniciar datos de prueba -->
+          <div
+            class="danger-zone p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          >
+            <div>
+              <h3 class="text-sm font-extrabold text-rose-700">
+                Limpiar Registros Financieros
+              </h3>
+              <p class="text-xs text-rose-600/80 mt-0.5">
+                Borra deudas, gastos fijos e historial para empezar en cero
+              </p>
+            </div>
+            <button
+              id="btn-limpiar-datos"
+              type="button"
+              class="px-4 py-2.5 rounded-xl bg-brand-coral hover:bg-rose-700 text-white text-xs font-bold transition inline-flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+              <span>Reiniciar Datos</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Scripts separados -->
+    <script src="js/datos-prueba.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/perfil.js"></script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+@use "variables" as *;
+
+body {
+  font-family: $font-main;
+}
+
+.mesh-gradient {
+  background:
+    radial-gradient(circle at 10% 20%, $cyan 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, $royal 0%, transparent 40%),
+    radial-gradient(
+      circle at 80% 15%,
+      rgba($amber, 0.25) 0%,
+      transparent 30%
+    ),
+    $petrol;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-brand {
+  background: linear-gradient(90deg, $royal 0%, $cyan 50%, $petrol 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 20px 35px -10px rgba(1, 41, 57, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  will-change: transform;
+
+  // Textura geométrica muy suave de fondo
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: 16px 16px;
+    pointer-events: none;
+  }
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: $scroll-thumb;
+  border-radius: 9999px;
+}
